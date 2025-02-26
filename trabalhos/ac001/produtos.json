@@ -1,0 +1,42 @@
+[
+	{
+	  "id": 1,
+	  "nome": "Notebook Dell",
+	  "descricao": "Notebook Dell Inspiron 15, 8GB RAM, 256GB SSD",
+	  "preco": 3500.00,
+	  "categoria_id": 1,
+	  "estoque": 10
+	},
+	{
+	  "id": 2,
+	  "nome": "Smartphone Samsung",
+	  "descricao": "Smartphone Samsung Galaxy S21, 128GB, 5G",
+	  "preco": 2800.00,
+	  "categoria_id": 2,
+	  "estoque": 15
+	},
+	{
+	  "id": 3,
+	  "nome": "Tablet Apple",
+	  "descricao": "Tablet Apple iPad Pro, 11 polegadas, 256GB",
+	  "preco": 4500.00,
+	  "categoria_id": 3,
+	  "estoque": 5
+	},
+	{
+	  "id": 4,
+	  "nome": "Smart TV LG",
+	  "descricao": "Smart TV LG 55 polegadas, 4K UHD",
+	  "preco": 3200.00,
+	  "categoria_id": 4,
+	  "estoque": 8
+	},
+	{
+	  "id": 5,
+	  "nome": "Fone de Ouvido Sony",
+	  "descricao": "Fone de Ouvido Sony WH-1000XM4, Noise Cancelling",
+	  "preco": 1200.00,
+	  "categoria_id": 5,
+	  "estoque": 20
+	}
+  ]

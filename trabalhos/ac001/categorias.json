@@ -1,0 +1,27 @@
+[
+	{
+	  "id": 1,
+	  "nome": "Notebooks",
+	  "descricao": "Notebooks e ultrabooks de diversas marcas"
+	},
+	{
+	  "id": 2,
+	  "nome": "Smartphones",
+	  "descricao": "Smartphones e celulares de última geração"
+	},
+	{
+	  "id": 3,
+	  "nome": "Tablets",
+	  "descricao": "Tablets e iPads para trabalho e entretenimento"
+	},
+	{
+	  "id": 4,
+	  "nome": "Televisores",
+	  "descricao": "Smart TVs e televisores de alta definição"
+	},
+	{
+	  "id": 5,
+	  "nome": "Acessórios",
+	  "descricao": "Acessórios para dispositivos eletrônicos"
+	}
+  ]

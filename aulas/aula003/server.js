@@ -9,7 +9,7 @@ function readFile(response,file) {
     fs.readFile(file, function(err, data){
         //quando ler, escreve na response o conteudo do arquivo JSON
         response.end(data);
-    })
+    });
 }
 
 //função de callback para o servidor HTTP
