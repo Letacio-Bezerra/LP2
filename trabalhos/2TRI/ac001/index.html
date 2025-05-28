@@ -2,26 +2,78 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Dados</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gerenciador de Campeões</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<body class="container mt-4">
-    <h1 class="text-center">Gerenciador de Dados</h1>
-    <p class="text-center">Endpoints disponíveis:</p>
-    <div class="d-flex justify-content-center gap-3">
-        <a href="/lol" class="btn btn-primary" aria-label="Listar todos os registros">Listar Registros</a>
-        <a href="/lol?nome=Volibear" class="btn btn-secondary" aria-label="Buscar por Nome">Buscar por Nome</a>
-        <a href="/lol?regiao=Freljord" class="btn btn-secondary" aria-label="Buscar por Região">Buscar por Região</a>
+<body class="bg-light">
+  <div class="container py-5">
+    <h1 class="text-center mb-4 fw-bold">Gerenciador de Campeões - League of Legends</h1>
+
+    <!-- Listar, Buscar por nome e região -->
+    <div class="d-flex justify-content-center gap-3 mb-5 flex-wrap">
+      <a href="/lol" class="btn btn-primary" aria-label="Listar todos os registros">Listar Registros</a>
+      <a href="/lol?nome=Volibear" class="btn btn-secondary" aria-label="Buscar por Nome">Buscar por Nome</a>
+      <a href="/lol?regiao=Freljord" class="btn btn-secondary" aria-label="Buscar por Região">Buscar por Região</a>
     </div>
-    <hr>
-    <h2 class="text-center">Excluir Registro</h2>
-    <form action="/excluir-champ" method="post" class="text-center">
-        <input type="text" name="nome" placeholder="Nome do registro" required class="form-control mb-2">
-        <button type="submit" class="btn btn-danger">Excluir</button>
-    </form>
+
+    <div class="row g-4">
+
+      <!-- Excluir -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-danger text-white text-center fw-semibold">
+            Excluir Campeão
+          </div>
+          <div class="card-body">
+            <form action="/excluir-champ" method="post" class="d-flex flex-column">
+              <input type="text" name="nome" placeholder="Nome do campeão" required class="form-control mb-3" />
+              <button type="submit" class="btn btn-danger">Excluir</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Adicionar -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-success text-white text-center fw-semibold">
+            Adicionar Campeão
+          </div>
+          <div class="card-body">
+            <form action="/adicionar-champ" method="post" class="d-flex flex-column">
+              <input type="text" name="nome" placeholder="Nome" required class="form-control mb-3" />
+              <input type="text" name="regiao" placeholder="Região" required class="form-control mb-3" />
+              <textarea name="lore" placeholder="Lore" required class="form-control mb-3" rows="4"></textarea>
+              <button type="submit" class="btn btn-success">Adicionar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Atualizar -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-warning text-dark text-center fw-semibold">
+            Atualizar Campeão
+          </div>
+          <div class="card-body">
+            <form action="/atualizar-champ" method="post" class="d-flex flex-column">
+              <input type="text" name="nome" placeholder="Nome (existente)" required class="form-control mb-3" />
+              <input type="text" name="regiao" placeholder="Nova Região" required class="form-control mb-3" />
+              <textarea name="lore" placeholder="Nova Lore" required class="form-control mb-3" rows="4"></textarea>
+              <button type="submit" class="btn btn-warning">Atualizar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

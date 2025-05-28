@@ -1,17 +1,17 @@
 [
-    {
-        "nome": "Briar",
-        "regiao": "Noxus",
-        "lore": "Briar é uma campeã de League of Legends que nasceu de um experimento fracassado da Rosa Negra..."
-    },
-    {
-        "nome": "Volibear",
-        "regiao": "Freljord",
-        "lore": "Volibear é um semideus de Freljord e a personificação da tempestade e da destruição..."
-    },
-    {
-        "nome": "Malphite",
-        "regiao": "Ixtal",
-        "lore": "Em uma batalha feroz contra um mago errante, Malphite foi atingido por um feitiço inesperado..."
-    }
+  {
+    "nome": "Briar",
+    "regiao": "Noxus",
+    "lore": "Briar é uma campeã de League of Legends que nasceu de um experimento fracassado da Rosa Negra..."
+  },
+  {
+    "nome": "Volibear",
+    "regiao": "Freljord",
+    "lore": "Volibear é um semideus de Freljord e a personificação da tempestade e da destruição..."
+  },
+  {
+    "nome": "Malphite",
+    "regiao": "Baa",
+    "lore": "xd"
+  }
 ]
