@@ -22,36 +22,46 @@ app.get('/', (req, res) => {
 // Rota GET - Listar ou buscar por nome ou região
 app.get('/lol', (req, res) => {
     fs.readFile(DATA_FILE, 'utf-8', (err, data) => {
-        if (err) return res.status(500).send('Erro ao ler os dados.');
+        if (err) {
+            return res.status(500).send('Erro ao ler os dados.');
+        }
 
         const lol = JSON.parse(data);
-        const { name, regiao } = req.query;
+        const nome = req.query.nome;
+        const regiao = req.query.regiao
 
-        let filtered = lol;
-
-        if (name) {
-            filtered = filtered.filter(champ => champ.nome.toLowerCase().includes(name.toLowerCase()));
+        if (nome) {
+            const filtered = lol.filter(champ =>
+                champ.nome.toLowerCase() === nome.toLowerCase());
+                 return res.json(filtered);
         }
 
         if (regiao) {
-            filtered = filtered.filter(champ => champ.regiao.toLowerCase().includes(regiao.toLowerCase()));
+            filtered = lol.filter(champ => champ.regiao.toLowerCase() === regiao.toLowerCase());
+            return res.json(filtered);
         }
 
-        res.json(filtered);
+        res.json(lol);
     });
 });
 
 // Rota POST - Inserir novo registro
 app.post('/lol', (req, res) => {
+    const novoChamp = req.body;
+
     fs.readFile(DATA_FILE, 'utf-8', (err, data) => {
-        if (err) return res.status(500).send('Erro ao ler os dados.');
+        if (err) {
+            return res.status(500).send('Erro ao ler os dados.');
+        }
 
         const champions = JSON.parse(data);
-        champions.push(req.body);
+        champions.push(novoChamp);
 
         fs.writeFile(DATA_FILE, JSON.stringify(champions, null, 2), (err) => {
-            if (err) return res.status(500).send('Erro ao salvar.');
-            res.status(201).json({ message: 'Campeão adicionado!' });
+            if (err) {
+                return res.status(500).send('Erro ao salvar os dados.');
+            }
+            res.status(201).json({ message: 'Artigo adicionado!' });
         });
     });
 });
