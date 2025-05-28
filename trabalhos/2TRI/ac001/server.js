@@ -45,61 +45,30 @@ app.get('/lol', (req, res) => {
     });
 });
 
-// Rota POST - Inserir novo registro
-app.post('/lol', (req, res) => {
-    const novoChamp = req.body;
+//Rota para processar e excluir o champ
+app.post('/excluir-champ', (req, res) => {
+    const { nome } = req.body;
 
-    fs.readFile(DATA_FILE, 'utf-8', (err, data) => {
-        if (err) {
-            return res.status(500).send('Erro ao ler os dados.');
-        }
+    let lolDate = fs.readFileSync(lolPath, 'utf-8');
+    let lol = JSON.parse(lolDate);
 
-        const champions = JSON.parse(data);
-        champions.push(novoChamp);
+    const lolIndex = lol.findIndex(lol => lol.nome.toLowerCase() === nome.toLowerCase());
 
-        fs.writeFile(DATA_FILE, JSON.stringify(champions, null, 2), (err) => {
-            if (err) {
-                return res.status(500).send('Erro ao salvar os dados.');
+    if (lolIndex === -1) {
+        res.send('<h1>Carro não encontrado</h1>')
+        return;
+    }
+
+    //Confirmação antes de excluir
+    res.send(`
+        <script>
+            if (confirm('Tem certeza de que deseja excluir o champ ${nome}?)) {
+                window.location.href = '/excluir-champ-confirmado? nome = ${nome}';
+            } else {
+                window.location.href = '/excluir-champ';
             }
-            res.status(201).json({ message: 'Artigo adicionado!' });
-        });
-    });
-});
-
-// Rota PUT - Atualizar registro
-app.put('/lol/:nome', (req, res) => {
-    fs.readFile(DATA_FILE, 'utf-8', (err, data) => {
-        if (err) return res.status(500).send('Erro ao ler os dados.');
-
-        let champions = JSON.parse(data);
-        const index = champions.findIndex(champ => champ.nome === req.params.nome);
-
-        if (index !== -1) {
-            champions[index] = { ...champions[index], ...req.body };
-
-            fs.writeFile(DATA_FILE, JSON.stringify(champions, null, 2), (err) => {
-                if (err) return res.status(500).send('Erro ao salvar.');
-                res.json({ message: 'Campeão atualizado!' });
-            });
-        } else {
-            res.status(404).send('Campeão não encontrado.');
-        }
-    });
-});
-
-// Rota DELETE - Excluir registro
-app.delete('/lol/:nome', (req, res) => {
-    fs.readFile(DATA_FILE, 'utf-8', (err, data) => {
-        if (err) return res.status(500).send('Erro ao ler os dados.');
-
-        let champions = JSON.parse(data);
-        champions = champions.filter(champ => champ.nome !== req.params.nome);
-
-        fs.writeFile(DATA_FILE, JSON.stringify(champions, null, 2), (err) => {
-            if (err) return res.status(500).send('Erro ao salvar.');
-            res.json({ message: 'Campeão excluído!' });
-        });
-    });
+        </script>
+    `)
 });
 
 app.listen(PORT, () => {
