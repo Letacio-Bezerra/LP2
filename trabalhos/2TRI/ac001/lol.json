@@ -1,10 +1,5 @@
 [
   {
-    "nome": "Briar",
-    "regiao": "Noxus",
-    "lore": "Briar é uma campeã de League of Legends que nasceu de um experimento fracassado da Rosa Negra..."
-  },
-  {
     "nome": "Volibear",
     "regiao": "Freljord",
     "lore": "Volibear é um semideus de Freljord e a personificação da tempestade e da destruição..."
@@ -13,5 +8,15 @@
     "nome": "Malphite",
     "regiao": "Baa",
     "lore": "xd"
+  },
+  {
+    "nome": "Briar",
+    "regiao": "Noxus",
+    "lore": "Ela é doida"
+  },
+  {
+    "nome": "Sylas",
+    "regiao": "Noxus",
+    "lore": "Ele é gay e casou com o sett"
   }
 ]
