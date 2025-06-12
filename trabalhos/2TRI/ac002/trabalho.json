@@ -1,0 +1,12 @@
+[
+  {
+    "titulo": "AC2_2TRI_WebDesign",
+    "descricao": "Desenvolver um servidor Node.js para gerenciar uma agenda de trabalhos escolares, permitindo que o usuário inclua, exclua e edite itens. As tarefas adicionadas devem ser exibidas em uma tabela com a possibilidade de filtrar por disciplina. UtilizeBootstrap para criar uma interface visualmente atraente e responsiva. ",
+    "disciplina": "WebDesign"
+  },
+  {
+    "titulo": "Jorge",
+    "descricao": "ccc",
+    "disciplina": "ccccc"
+  }
+]
