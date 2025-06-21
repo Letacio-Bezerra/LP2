@@ -4,78 +4,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gerenciador de Campeões</title>
-  <link rel="stylesheet" href="bootstrap-5.1.3-dist/css/bootstrap.css">
+  <title>Gerenciador de Trabalhos</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body class="bg-light">
-  <div class="container py-5">
-    <h1 class="text-center mb-4 fw-bold">Gerenciador de Trabalhos</h1>
 
-    <!-- Listar, Buscar por nome e região -->
-    <div class="d-flex justify-content-center gap-3 mb-5 flex-wrap">
-      <a href="/trabalho" class="btn btn-primary" aria-label="Listar todos os registros">Listar Registros</a>
-      <a href="/trabalho?titulo=AC2_2TRI_WebDesign" class="btn btn-secondary" aria-label="Buscar por Nome">Buscar por Título</a>
-      <a href="/trabalho?disciplina=WebDesign" class="btn btn-secondary" aria-label="Buscar por Região">Buscar por Disciplina</a>
-    </div>
+  <header class="bg-primary text-white py-4 text-center">
+    <h1 class="fw-bold">Gerenciador de Trabalhos</h1>
+  </header>
 
-    <div class="row g-4">
-
-      <!-- Excluir -->
-      <div class="col-md-4">
-        <div class="card shadow-sm">
-          <div class="card-header bg-danger text-white text-center fw-semibold">
-            Excluir trabalho
-          </div>
-          <div class="card-body">
-            <form action="/excluir-trabalho" method="post" class="d-flex flex-column">
-              <input type="text" name="nome" placeholder="Nome do trabalho" required class="form-control mb-3" />
-              <button type="submit" class="btn btn-danger">Excluir</button>
-            </form>
-          </div>
-        </div>
+  <main class="container py-5">
+    <section class="mb-5">
+      <h2 class="text-center">Trabalhos Registrados</h2>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover mt-3 align-middle text-center">
+          <thead class="table-light">
+            <tr>
+              <th>Título</th>
+              <th>Descrição</th>
+              <th>Disciplina</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{tabelaTrabalhos}}
+          </tbody>
+        </table>
       </div>
+    </section>
 
-      <!-- Adicionar -->
-      <div class="col-md-4">
+    <section class="d-flex justify-content-center gap-3 flex-wrap mb-5">
+      <a href="/trabalho" class="btn btn-primary">Listar Registros</a>
+      <a href="/trabalho?titulo=AC2_2TRI_WebDesign" class="btn btn-secondary">Buscar por Título</a>
+      <a href="/trabalho?disciplina=WebDesign" class="btn btn-secondary">Buscar por Disciplina</a>
+    </section>
+
+    <section class="row justify-content-center">
+      <div class="col-md-6">
         <div class="card shadow-sm">
           <div class="card-header bg-success text-white text-center fw-semibold">
             Adicionar Trabalho
           </div>
           <div class="card-body">
-            <form action="/adicionar-trabalho" method="post" class="d-flex flex-column">
-              <input type="text" name="titulo" placeholder="titulo" required class="form-control mb-3" />
-              <input type="text" name="descricao" placeholder="Descrição" required class="form-control mb-3" />
-              <textarea name="disciplina" placeholder="Disciplina" required class="form-control mb-3" rows="4"></textarea>
-              <button type="submit" class="btn btn-success">Adicionar</button>
+            <form action="/adicionar-trabalho" method="post" novalidate>
+              <div class="mb-3">
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" name="titulo" id="titulo" class="form-control" placeholder="Digite o título" required />
+              </div>
+              <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição</label>
+                <input type="text" name="descricao" id="descricao" class="form-control" placeholder="Digite a descrição" required />
+              </div>
+              <div class="mb-3">
+                <label for="disciplina" class="form-label">Disciplina</label>
+                <textarea name="disciplina" id="disciplina" class="form-control" rows="3" placeholder="Digite a disciplina" required></textarea>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-success">Adicionar</button>
+              </div>
             </form>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Atualizar -->
-      <div class="col-md-4">
-        <div class="card shadow-sm">
-          <div class="card-header bg-warning text-dark text-center fw-semibold">
-            Atualizar Trabalho
-          </div>
-          <div class="card-body">
-            <form action="/atualizar-trabalho" method="post" class="d-flex flex-column">
-              <input type="text" name="titulo" placeholder="Título (existente)" required class="form-control mb-3" />
-              <input type="text" name="descricao" placeholder="Nova Descrição" required class="form-control mb-3" />
-              <textarea name="disciplina" placeholder="Nova Disciplina" required class="form-control mb-3" rows="4"></textarea>
-              <button type="submit" class="btn btn-warning">Atualizar</button>
-            </form>
-          </div>
-        </div>
-      </div>
+  </main>
 
-    </div>
-  </div>
+  <footer class="bg-dark text-white text-center py-4 mt-5">
+    <p class="mb-0">© 2025 Gerenciador de Trabalhos | Desenvolvido com Bootstrap</p>
+  </footer>
 
-  <script src="bootstrap-5.1.3-dist/js/bootstrap.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

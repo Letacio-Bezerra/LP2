@@ -4,7 +4,15 @@ const path = require('path');
 
 const app = express();
 const PORT = 3001;
+
 const DATA_FILE = path.join(__dirname, 'trabalho.json');
+
+function truncarDescricao(descricao, comprimentoMaximo) {
+    if (descricao.length > comprimentoMaximo) {
+        return descricao.slice(0, comprimentoMaximo) + '...';
+    }
+    return descricao;
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,7 +24,41 @@ if (!fs.existsSync(DATA_FILE)) {
 
 // Rota principal que envia o HTML
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    fs.readFile(DATA_FILE, 'utf-8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Erro ao carregar os trabalhos.');
+        }
+
+        const trabalhos = JSON.parse(data);
+        let tabela = '';
+
+        trabalhos.forEach(trabalho => {
+            const descricaoTruncada = truncarDescricao(trabalho.descricao, 100);
+
+            tabela += `
+                <tr>
+                    <td>${trabalho.titulo}</td>
+                    <td>${descricaoTruncada}</td>
+                    <td>${trabalho.disciplina}</td>
+                <td class="d-flex gap-2">
+                <form action="/editar-trabalho" method="get">
+                    <input type="hidden" name="titulo" value="${trabalho.titulo}">
+                    <button type="submit" class="btn btn-sm btn-primary">Editar</button>
+                </form>
+                <form action="/excluir-trabalho" method="post" onsubmit="return confirm('Tem certeza que deseja excluir este trabalho?')">
+                    <input type="hidden" name="titulo" value="${trabalho.titulo}">
+                    <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                </form>
+                </td>
+                </tr>
+            `;
+        });
+
+        const htmlBase = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
+        const paginaFinal = htmlBase.replace('{{tabelaTrabalhos}}', tabela);
+
+        res.send(paginaFinal);
+    });
 });
 
 // Rota GET /trabalho - Listar todos ou filtrar por titulo ou disciplina
@@ -150,6 +192,60 @@ app.post('/atualizar-trabalho', (req, res) => {
 
             res.send(`<h1>Trabalho "${titulo}" atualizado com sucesso!</h1><a href="/">Voltar</a>`);
         });
+    });
+});
+
+app.get('/editar-trabalho', (req, res) => {
+    const { titulo } = req.query;
+
+    fs.readFile(DATA_FILE, 'utf-8', (err, data) => {
+        if (err) return res.status(500).send('Erro ao ler os dados.');
+
+        const trabalhos = JSON.parse(data);
+        const trabalho = trabalhos.find(t => t.titulo.toLowerCase() === titulo.toLowerCase());
+
+        if (!trabalho) {
+            return res.send(`<h1>Trabalho "${titulo}" não encontrado.</h1><a href="/">Voltar</a>`);
+        }
+
+        res.send(`
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+            <head>
+                <meta charset="UTF-8">
+                <title>Editar Trabalho</title>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+            </head>
+            <body class="bg-light">
+                <div class="container py-5">
+                    <h1 class="mb-4 text-center">Editar Trabalho</h1>
+                    <form action="/atualizar-trabalho" method="post" class="card p-4 shadow-sm mx-auto" style="max-width: 600px;">
+                        <input type="hidden" name="titulo" value="${trabalho.titulo}">
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Título:</label>
+                            <input type="text" value="${trabalho.titulo}" class="form-control" disabled>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Descrição:</label>
+                            <input type="text" name="descricao" value="${trabalho.descricao}" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Disciplina:</label>
+                            <input type="text" name="disciplina" value="${trabalho.disciplina}" class="form-control" required>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-warning">Salvar Alterações</button>
+                            <a href="/" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </body>
+            </html>
+        `);
     });
 });
 
